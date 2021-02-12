@@ -5,12 +5,13 @@
 \usepackage[nottoc]{tocbibind}
 \usepackage{graphicx}
 \usepackage[bottom]{footmisc}
+\usepackage{cite}
  
 
-\title{Project Document: Team Name}
-\author{Team Member 1 \\
-Team Member 2 \\
-Team Member 3 }
+\title{Project Document: Deep(FAMS)}
+\author{Mohammad Alyetama \\
+Ali Al-Ramini \\
+Fangyi Li }
 \date{}
 
 \begin{document}
@@ -27,6 +28,7 @@ This is the template you are required to use for your project milestone write-up
 
 \section{Introduction}
 
+\subsection{Project Idea 1}
 Here you should give an 
 overview of your process, where you looked for project ideas. Citations are important. 
 
@@ -55,17 +57,33 @@ For example, Figure~\ref{fig:compute} shows how computing power requirements for
     \label{tab:CNN-perf}
 \end{table}
 
-\section{Project Idea 1: [name]}
+\subsection{Project Idea 2}
+There is a great interest in improving the cycling infrastructure in Nebraska by analyzing cyclic data. Toward this goal, we acquired the Strava Metro data that covers the state of Nebraska from January 2017 to December 2019.  Strava provides data into four categories edges, nodes, origin-destination polygons, and shapefiles that contain spatial attributes to create maps using GIS software. Edges are street segments between nodes. In other words, a set of edges form a street. Nodes are the intersections between edges, and origin-destination polygons divide a space into smaller areas. Every category of Strava data is divided into yearly, monthly, and hourly data. The Strava data, made available by the social fitness network company Strava, includes raw data for the hour-by-hour counts for bicycle trips that have been mostly incorporated into existing maps for better visualization. In this project, we propose building a deep learning regression model that utilizes Strava data in addition to weather data to predict the number of cycling trips in Nebraska. 
 
-Summarize the problem, list applications, summarize approaches to this problem. 
 
 
-\section{Project Idea 2: [name]}
+\section{Project Idea 1: Evaluating the Reproducibility of Training GAN With Limited Data}
 
-Summarize the problem, list applications, summarize approaches to this problem 
+Generative adversarial networks (GAN) is a generative modeling approach that uses deep learning techniques to automatically discover and learn the patterns in the input to generate an output that would plausibly appear as if it was sampled from the original input data. For example, a GAN that uses convolutional neural networks (CNNs) can take photographs of humans as its input data and generate new photographs of humans with plausible characteristics that looks superficially genuine. This approach gained popularity after it was introduced for the first time by Goodfellow et al. <CITE>. In their paper, they describe GAN as a structure with two essential sub-models: (1) a generator model that learns to generate superficially plausible data, which the discriminator takes as a negative training examples, and (2) a discriminator model that learns to discriminate between generated and real data, and penalizes the generator if an implausible result is detected. Here, the generator and the discriminator are neural networks that are directly connected. This connection allows the discriminator to send a signal, through backpropagation, that the generator uses to update its weights. Specifically, the generator samples a vector that is randomly drawn from a Gaussian distribution and use it to seed its generative process and match it to a distribution of interest, creating a "latent space." With sufficient training, the generator model can learn the statistical latent space of the input data and create output data similar to what is observed in the input data. An example of such data is then processed by the discriminator model and attempt to distinguish it from the real distribution of the data (i.e., a binary class of fake/real). The generator model's goal here is to maximize the error of the discriminator model. In other words, the generator model becomes more effective the more the discriminator process fake data as real data. The GAN approach has been used in fashion, science and video games with impressive results <source>.
+
+A major challenge in this area, however, is the large number of data required to build a good GAN model, which is in some cases not available for researchers interested in applying GAN to their research question. The reason why GAN typically requires a large dataset is because with smaller datasets, the discriminator model ends up overfitting to training data examples and the training eventually diverge. While dataset augmentation is typically applies in such situations to solve the problem of overfitting, this cannot be achieved in GAN models. The inability of solving this problem with dataset augmentation stems from the ability of GAN in employing this technique without learning the augmented distribution and leaking this results to the model, causing an undesirable outcome <SOURCE>. Therefore, the challenge is to demonstrate that GAN can be used with smaller datasets without the aforementioned pitfalls.
+
+In this project, we attempt to reproduce a proposed solution by Karras et al. to this problem. 
+
+
+
+\section{Project Idea 2: Using App Data to Model bicycling Patterns in Nebraska}
+
+Across the United States, cycling is becoming increasingly popular as users shift travel modes amid concerns of health, physical activity, air, and environmental quality, and to escape roadway congestion. Unfortunately, the infrastructure in the U.S. traditionally caters to automobile traffic creating impediments for bikers and impacting their safety. To accommodate cycling, a major challenge is the lack of machine learning model representation of the available data to assess the attributes of present assets accurately and to inform additional investments to integrate bicycles into our transportation system. Toward that end, this project uses citywide bicycle travel data (i.e., Strava Metro Data) to provide a comprehensive description of daily cycling in a mid-size American state, as a proof-of-concept approach to planning for cycling. 
+\\Various governments and organizations are utilizing big data to evaluate their cycling infrastructure ~\cite{hall2012open}. Big cycling data are usually collected using live point data, journey data, Bike-Share Programs (BSP), and GPS. Live point data are collected on intersections using cameras on traffic lights, counting stations, or even sensors. While the journey data provide information about the origin and the destination of the trip, it does not provide the details of the trip. This set of data could be collected from BSP or by other sources like online questionnaires. BSP data are complete and in real-time. However, these data only give information within the area of its location ~\cite{ romanillos2016big, rogers2000counting}. Strava considered a GPS program that is made available by the social fitness network company Strava. Strava utilizes the Open Street Map (OSM) to deliver its data. These GPS data are very detailed and historical but represent a small sample of the total population of the cyclists.  
+Strava app data contains a vast amount of spatial and temporal details to predict cycling activities pattern. It provides a good approximation of the most-used routes and the peak months and hours. To protect privacy, the Strava data set is combined into population datasets. While a small portion of cyclic may use Strava to log their trips or the app might track trips for users using other transportation methods ~\cite{hall2012open, romanillos2016big, fishman2016cycling }, several studies showed that there is a strong correlation between the Strava data, and the ground-truth data obtained from counting stations ~\cite{hong2020evaluation, jestico2016mapping}. 
+Cycling is affected by several factors such as weather, time of the day, infrastructure, congestion, environment, income, public transportation, health, population density, the slope of the street, and cultural view towards cycling ~\cite{musakwa2016mapping, roy2019correcting, hochmair2019estimating} . But traditionally access to high-quality data has limited our understanding of cycling behavior and route choice in the face of these myriad factors. In this project, we explore the weather effects and weather parameters sensitivity to cycling in Nebraska. The goal of this work is to further specify cycling behavior as it relates to specific factors, but more importantly, to determine the quality of the specified factors in determining the number of cycling trips over a huge area like the State of Nebraska. 
+Using data visualization techniques and Deep learning regression (e.g., ANN, RNN, LSTM, and GRU)~\cite{hassoun1995fundamentals, graves2013generating} we study the most influential time-related factors affecting the cycling patterns in Nebraska. Moreover, cycling is usually categorized into two classes, commuting and recreational. The proposed study will take advantage of the data shared by Strava to predict the number of commute and recreational activities across all streets. 
+
+ 
 
 \section{Conclusions}
-
+\subsection{Project Idea 1}
 Sum up your results, including your opinion on each project idea.  Also, list any questions that you have for the instructor and TA regarding your project work.
 
 \textcolor{red}{Remember to cite sources using BiBTeX and add those references to the end of this document!}
@@ -74,144 +92,9 @@ It is okay to cite some websites and tutorials (if you first look up how to prop
 
 Sample citation~\cite{Samuel59}
 
-\chapter{Milestone 2: Project Selection}
+\subsection{Project Idea 2}
+This project provides an interesting idea, which is to create a deep learning model that predicts the cycling patterns in Nebraska. With the help of high-quality data sources (e.g., Strava Data and Weather Data) the outcomes of this project could be very important towards understanding how cyclists react to temporal variations. However, the spatial factors affecting cycling should be also studied adding more complexity to the problem. The spatial representation of the data could be very hard to map during this short period of time. 
 
-In this chapter, you should select your project, formally define it, and propose two approaches, each with a work plan.  You should follow the The Heilmeier Catechism~\cite{heilmeier}, which is a set of questions used to evaluate proposed research programs:  
-\begin{enumerate}
-    \item What are you trying to do? Articulate your objectives using absolutely no jargon.
-   \item How is it done today, and what are the limits of current practice?
-   \item What is new in your approach and why do you think it will be successful?
-   \item Who cares? If you are successful, what difference will it make?
-   \item What are the risks?
-   \item How much will it cost?
-   \item How long will it take?
-   \item What are the mid-term and final ``exams'' to check for success?
-\end{enumerate}
-
-\section{Introduction}
-
-Explain which project you chose, and why. (This can differ from the two you proposed in the previous chapter.) 
-
-\section{Problem Specification}
-
-Formally define your chosen problem, including the following, as subsections:
-\begin{enumerate}
-    \item A brief statement of your project topic (HC1).
-    \item Motivation for your topic: why it is important and interesting (HC3, HC4). If your work is in an application area, be careful to avoid technical jargon from that area that is outside of computer science. If you must use a term, define it as carefully and simply as possible.
-   \item What resources will you need, including data sets and libraries that need to be installed on {\tt crane} (HC6).
-   \item Cite at least three references (at least two published journal or conference papers) (HC2).
-\end{enumerate}
-
-\section{Proposed Method 1: [name]}
-
-Propose a step-by-step approach to solve your chosen problem.  You should include 
-a precise work plan: what you plan to do, what data sets you will test on, how you will preprocess the data, what the steps (pipeline) of this method (e.g., what NN architecture(s) will be used and how they'll be linked), how you will evaluate performance, what is your timeline, etc.\ (HC5, HC7, HC8).  One or more of your references should relate to aspects of this. 
-
-
-\section{Proposed Method 2: [name]}
-
-Propose a step-by-step approach to solve your chosen problem.  You should include 
-a precise work plan: what you plan to do, what data sets you will test on, how you will preprocess the data, what the steps (pipeline) of this method (e.g., what NN architecture(s) will be used and how they'll be linked), how you will evaluate performance, what is your timeline, etc.\ (HC5, HC7, HC8).  One or more of your references should relate to aspects of this. 
-
-\section{Conclusions}
-
-Sum up, including your opinion on each approach.  Also, list any questions that you have for the instructor and TA regarding your project work.
-
-\textcolor{red}{Remember to cite sources using BiBTeX and add those references to the end of this document!}
-
-It is okay to cite some websites and tutorials (if you first look up how to properly cite them!), but you must also cite some refereed publications from conferences and/or journals.
-
-\chapter{Milestone 3: Progress Report 1}
-
-\section{Introduction}
-\label{sec:M3-intro}
-
-Remind the reader of the problem you're working on, and what your approach is.  Briefly summarize what your results are so far.
-
-\section{Experimental Setup}
-\label{sec:M3-setup}
-
-Describe the setup of your experiments so far in sufficient detail for the reader to reproduce them.  Include data sources, preprocessing used, architectures/other approaches used, hyperparameter values used, performance measures used, other relevant items (e.g., cross-validation).
-
-\section{Experimental Results}
-\label{sec:M3-results}
-
-Present your results so far using tables, figures, confusion matrices, etc.\ (whatever is appropriate). 
-
-\section{Discussion}
-
-Discuss your experimental results, drawing conclusions that are supported by your experimental results of Section~\ref{sec:M3-results}.  Be careful to not draw conclusions that are not supported by the evidence you present! Discuss how these results will influence your future experiments.
-
-\section{Conclusion}
-
-Sum up, including your a summary of your results so far (recapitulating that from Section~\ref{sec:M3-intro}).  Also, describe your plans for future work and list any questions that you have for the instructor and TA regarding your project work.
-
-\textcolor{red}{Remember to cite sources using BiBTeX and add those references to the end of this document!}
-
-It is okay to cite some websites and tutorials (if you first look up how to properly cite them!), but you must also cite some refereed publications from conferences and/or journals.
-
-
-\chapter{Milestone 4: Progress Report 2}
-
-
-\section{Introduction}
-\label{sec:M4-intro}
-
-Remind the reader of the problem you're working on, and what your approach is.  Briefly summarize what your results are so far.
-
-\section{Experimental Setup}
-\label{sec:M3-setup}
-
-Describe the setup of your experiments so far in sufficient detail for the reader to reproduce them.  Include data sources, preprocessing used, architectures/other approaches used, hyperparameter values used, performance measures used, other relevant items (e.g., cross-validation).
-
-\section{Experimental Results}
-\label{sec:M4-results}
-
-Present your results so far using tables, figures, confusion matrices, etc.\ (whatever is appropriate). 
-
-\section{Discussion}
-
-Discuss your experimental results, drawing conclusions that are supported by your experimental results of Section~\ref{sec:M4-results}.  Be careful to not draw conclusions that are not supported by the evidence you present! Discuss how these results will influence your future experiments.
-
-\section{Conclusion}
-
-Sum up, including your a summary of your results so far (recapitulating that from Section~\ref{sec:M4-intro}).  Also, describe your plans for future work and list any questions that you have for the instructor and TA regarding your project work.
-
-\textcolor{red}{Remember to cite sources using BiBTeX and add those references to the end of this document!}
-
-It is okay to cite some websites and tutorials (if you first look up how to properly cite them!), but you must also cite some refereed publications from conferences and/or journals.
-
-
-
-\chapter{Milestone 5: Final Report}
-
-
-\section{Introduction}
-\label{sec:M5-intro}
-
-Remind the reader of the problem you're working on, and what your approach is.  Briefly summarize what your final results are.
-
-\section{Experimental Setup}
-\label{sec:M3-setup}
-
-Describe the setup of your experiments  in sufficient detail for the reader to reproduce them.  Include data sources, preprocessing used, architectures/other approaches used, hyperparameter values used, performance measures used, other relevant items (e.g., cross-validation).
-
-\section{Experimental Results}
-\label{sec:M5-results}
-
-Present your results  using tables, figures, confusion matrices, etc.\ (whatever is appropriate). 
-
-\section{Discussion}
-
-Discuss your experimental results, drawing conclusions that are supported by your experimental results of Section~\ref{sec:M5-results}.   Be careful to not draw conclusions that are not supported by the evidence you present!
-
-\section{Conclusion}
-
-Sum up, including your a summary of your results  (recapitulating that from Section~\ref{sec:M5-intro}).  Also, describe possible avenues for future work (should one continue the project) and list any questions that you have for the instructor and TA regarding your project work.
-
-\textcolor{red}{Remember to cite sources using BiBTeX and add those references to the end of this document!}
-
-It is okay to cite some websites and tutorials (if you first look up how to properly cite them!), but you must also cite some refereed publications from conferences and/or journals.
 
 \appendix
 
