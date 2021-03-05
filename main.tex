@@ -6,7 +6,9 @@
 \usepackage{graphicx}
 \usepackage[bottom]{footmisc}
 \usepackage{cite}
- 
+\usepackage{caption}
+\usepackage{subcaption}
+\bibliographystyle{ieeetr}
 
 \title{Project Document: Deep(FAMS)}
 \author{Mohammad Alyetama \\
@@ -71,6 +73,84 @@ The core of this project is to test if the methods proposed by Karras et al. can
 
 \subsection{Project Idea 2}
 This project provides an exciting idea: to create a deep learning model that predicts Nebraska's cycling patterns. With the help of high-quality data sources (e.g., Strava Data and Weather Data), this project's outcomes could be essential towards understanding how cyclists react to temporal variations. However, the spatial factors affecting cycling should also be studied, adding more complexity to the problem. The spatial representation of the data could be tough to map during this short period. Additionally, this idea is essential considering the current situation with COVID-19, adding more complexity and difficulty to reproducing the analysis to agree with the latest status.
+
+\chapter{Milestone 2: Project Selection}
+
+In this chapter, you should select your project, formally define it, and propose two approaches, each with a work plan.  You should follow the The Heilmeier Catechism~\cite{heilmeier}, which is a set of questions used to evaluate proposed research programs:  
+\begin{enumerate}
+    \item What are you trying to do? Articulate your objectives using absolutely no jargon.
+   \item How is it done today, and what are the limits of current practice?
+   \item What is new in your approach and why do you think it will be successful?
+   \item Who cares? If you are successful, what difference will it make?
+   \item What are the risks?
+   \item How much will it cost?
+   \item How long will it take?
+   \item What are the mid-term and final ``exams'' to check for success?
+\end{enumerate}
+
+\section{Introduction}
+
+Explain which project you chose, and why. (This can differ from the two you proposed in the previous chapter.) 
+
+\section{Problem Specification}
+
+%Formally define your chosen problem, including the following, as subsections:
+%\begin{enumerate}
+%    \item A brief statement of your project topic (HC1).
+%    \item Motivation for your topic: why it is important and interesting (HC3, HC4). If your work is in an application area, be careful to avoid technical jargon from that area that is outside of computer science. If you must use a term, define it as carefully and simply as possible.
+%   \item What resources will you need, including data sets and libraries that need to be installed on {\tt crane} (HC6).
+%   \item Cite at least three references (at least two published journal or conference papers) (HC2).
+%\end{enumerate}
+
+The work presented in this project provides a complete evaluation of the proposed generative image training models by Karras et al in\cite{karras2020training}. The idea is to reproduce the generative image models trained on significantly fewer data compared to other approaches in the past. In this reproducibility challenge, we use the provide and approaches and codes in\cite{karras2020training} to assess its reproducibility and ability to classify relatively small (few thousands) datasets.\\
+
+
+In many application fields it is challenging to collect large datasets to perform data training. For example, in medicine there is an ongoing challenge in modeling possible appearance of biological specimens (tissues, tumors, etc.) This is a growing body of research that seems to constantly suffer from limited high-quality data. Generative adversarial networks (GAN) great results in training unlimited online data\cite{goodfellow2014generative, miyato2018cgans, miyato2018spectral, brock2018large, karras2017progressive, karras2019style, karras2020analyzing} cannot be used for specific applications that require around hundreds of thousands of pictures, which is very complicated and costly for many applications. When used with small datasets, GAN overfits the discriminator leading to training divergence. In 2020, Karras et al proposed a different approach by creating different augmentation techniques to make Gan suitable for small datasets. They demonstrated the use of a wide range of augmentations to ensure that the discriminator does not overfit, while the generator does not also leak. Thus, in this project we evaluate the GAN augmentations proposed by Karras et al and reproduce their approaches in terms of model architecture and code. Moreover, we test the model on several small datasets and compare our results with the results obtained by the original paper authors. From an applied point of view, this work contributes to efficiency; by testing the GAN augmentations proposed, this work will further confirm the elimination of the barrier for applying GAN-type
+models in many applied fields of research. \\
+
+In this project, we use several datasets that consist of a limited number of training images, including: 
+\begin{enumerate}
+\item METFACES\cite{karras2020training} 
+\item BRECAHAD\cite{aksac2019brecahad}
+\item AFHQ\cite{choi2020stargan}
+\item CIFAR-10\cite{krizhevsky2009learning}
+\item FFHQ\cite{karras2019style}
+\item LSUN\cite{yu2015lsun}
+\end{enumerate}
+
+
+\section{Proposed Method: [name]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Propose a step-by-step approach to solve your chosen problem.  You should include 
+%a precise work plan: what you plan to do, what data sets you will test on, how you will preprocess the data, what the steps (pipeline) of this method (e.g., what NN architecture(s) will be used and how they'll be linked), how you will evaluate performance, what is your timeline, etc.\ (HC5, HC7, HC8).  One or more of your references should relate to aspects of this. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section, we provide details of the methods we plan to use in this paper.
+
+\begin{itemize}
+    \item Datasets. In our experiments, we will randomly sample labeled examples from the training 
+\end{itemize}
+
+
+
+\section{Conclusions}
+
+%Sum up, including your opinion on each approach.  Also, list any questions that you have for the instructor and TA regarding your project work.
+
+%\textcolor{red}{Remember to cite sources using BiBTeX and add those references to the end of this document!}
+
+%It is okay to cite some websites and tutorials (if you first look up how to properly cite them!), but you must also cite some refereed publications from conferences and/or journals.
+
+
+
+
+
+
+
+
+
+
 
 
 \bibliographystyle{plainurl}
