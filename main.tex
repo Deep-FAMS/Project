@@ -76,21 +76,27 @@ This project provides an exciting idea: to create a deep learning model that pre
 
 \chapter{Milestone 2: Project Selection}
 
-In this chapter, you should select your project, formally define it, and propose two approaches, each with a work plan.  You should follow the The Heilmeier Catechism~\cite{heilmeier}, which is a set of questions used to evaluate proposed research programs:  
-\begin{enumerate}
-    \item What are you trying to do? Articulate your objectives using absolutely no jargon.
-   \item How is it done today, and what are the limits of current practice?
-   \item What is new in your approach and why do you think it will be successful?
-   \item Who cares? If you are successful, what difference will it make?
-   \item What are the risks?
-   \item How much will it cost?
-   \item How long will it take?
-   \item What are the mid-term and final ``exams'' to check for success?
-\end{enumerate}
+%In this chapter, you should select your project, formally define it, and propose two approaches, each with a work plan.  You should follow the The Heilmeier Catechism~\cite{heilmeier}, which is a set of questions used to evaluate proposed research programs:  
+%\begin{enumerate}
+   % \item What are you trying to do? Articulate your objectives using absolutely no jargon.
+   %\item How is it done today, and what are the limits of current practice?
+   %\item What is new in your approach and why do you think it will be successful?
+   %\item Who cares? If you are successful, what difference will it make?
+   %\item What are the risks?
+   %\item How much will it cost?
+   %\item How long will it take?
+   %\item What are the mid-term and final ``exams'' to check for success?
+%\end{enumerate}
 
 \section{Introduction}
 
-Explain which project you chose, and why. (This can differ from the two you proposed in the previous chapter.) 
+Our group semester project is Evaluating the Reproducibility of Training GAN with Limited Data.
+As mentioned in the last chapter, GAN, representing Generative Adversarial Networks, is a generative modeling approach using deep learning techniques to automatically discover and learn the input patterns to generate an output that would plausibly appear as it was sampled from the original dataset\cite{goodfellow2014generative}. The GAN approach has gained its popularity in diverse areas including but not limited to fashion, science, and video games\cite{gui2020review}. The success of GAN approach can be contributed to its structure: a generator model and discriminator model connecting together, where the generator model learns to generate superficially plausible data, and the discriminator model takes the generated data to discriminate with the real data and penalizes the generator if there’s an implausible result detected\cite{creswell2018generative}. The connection between two models allows the updating of generator based on the discrimination of discriminator, and generating the more plausible outputs\cite{radford2015unsupervised}. However, its success is still weakened by the challenge of its needs for the large dataset, to make sure the efficiency of the GAN approach. The applying of small dataset makes the discriminator ended up overfitting to training data examples, and the training diverged\cite{zhao2020improved}. What’s more, if the augmentation of dataset is simply introduced to resolve the overfitting, the augmented distribution can be caused, which is highly undesirable for sample generation.\cite{zhao2020improved} Therefore, it is a challenge that applying GAN approach with smaller dataset and avoid the mentioned pitfalls at the same time. In the research by Kerras et al\cite{karras2020training}, one method was come up to realize obtaining the good results using smaller dataset. The research was applying a wide variety of augmentation methods, and the results demonstrated the validity by describing a set of conditions that allows controlling the augmentations leak problem and then proposed an adaptive discriminator augmentation pipeline that can control the strength of the augmentation. 
+
+The paper provides the possibility for small dataset to obtain good result from GAN approach; this possibility is valuable since the broke of dataset size limitation will help GAN approach spreading in more areas, and correspondingly those areas will obtain an efficient way to solve their problems. 
+The offered methods are providing us the prospect for the future similar problems, which is a great chance for us to learn about model learning. Additionally, the decision on Evaluating the Reproducibility of Training GAN with Limited Data is also the result of considering the feasibility within the limited one-semester timeline: 
+the small size of dataset won’t discourage us to start with, and the provided methods in paper did a good demonstration for reproducing and won’t take too much time to lag behind the timeline.
+
 
 \section{Problem Specification}
 
@@ -102,24 +108,34 @@ Explain which project you chose, and why. (This can differ from the two you prop
 %   \item Cite at least three references (at least two published journal or conference papers) (HC2).
 %\end{enumerate}
 
-The work presented in this project provides a complete evaluation of the proposed generative image training models by Karras et al in\cite{karras2020training}. The idea is to reproduce the generative image models trained on significantly fewer data compared to other approaches in the past. In this reproducibility challenge, we use the provide and approaches and codes in\cite{karras2020training} to assess its reproducibility and ability to classify relatively small (few thousands) datasets.\\
+The work presented in this project provides a complete evaluation of the proposed generative image training models by Karras et al in\cite{karras2020training}. The idea is to reproduce the generative image models trained on significantly fewer data compared to other approaches in the past. We are going to use the adaptive discriminator augmentation mechanism proposed in paper, following the codes provided in\cite{karras2020training}, to assess its reproducibility and ability to classify relatively small (few thousands) datasets.\\
 
 
-In many application fields it is challenging to collect large datasets to perform data training. For example, in medicine there is an ongoing challenge in modeling possible appearance of biological specimens (tissues, tumors, etc.) This is a growing body of research that seems to constantly suffer from limited high-quality data. Generative adversarial networks (GAN) great results in training unlimited online data\cite{goodfellow2014generative, miyato2018cgans, miyato2018spectral, brock2018large, karras2017progressive, karras2019style, karras2020analyzing} cannot be used for specific applications that require around hundreds of thousands of pictures, which is very complicated and costly for many applications. When used with small datasets, GAN overfits the discriminator leading to training divergence. In 2020, Karras et al proposed a different approach by creating different augmentation techniques to make Gan suitable for small datasets. They demonstrated the use of a wide range of augmentations to ensure that the discriminator does not overfit, while the generator does not also leak. Thus, in this project we evaluate the GAN augmentations proposed by Karras et al and reproduce their approaches in terms of model architecture and code. Moreover, we test the model on several small datasets and compare our results with the results obtained by the original paper authors. From an applied point of view, this work contributes to efficiency; by testing the GAN augmentations proposed, this work will further confirm the elimination of the barrier for applying GAN-type
+In many application fields it is challenging to collect large datasets to perform data training. For example, in medicine there is an ongoing challenge in modeling possible appearance of biological specimens (tissues, tumors, etc.) This is a growing body of research that seems to constantly suffer from limited high-quality data. As introduced above, GAN has a great performance in training unlimited online data\cite{goodfellow2014generative, miyato2018cgans, miyato2018spectral, brock2018large, karras2017progressive, karras2019style, karras2020analyzing}, as a result it cannot be used for lots of specific applications that only collected around hundreds or thousands of samples, where collecting more samples can be very complicated and costly. If the small datasets are applied for GAN approach, the overfitting would occur in discriminator, and the dataset augmentation always used for overfitting can lead to training divergence in this GAN approach situation, which will not get a good result in the end. The method proposed by Kerras et al has been providing the chance to break this deadlock, to make GAN approach more suitable for small datasets, this method takes use of a wide range of augmentations to ensure that the discriminator does not overfit, while the generator does not also leak. The success of this method will make GAN approach more available for those specific applications with relative small datasets, where's a great potential to solve more problems. Thus, in this project we evaluate the GAN augmentations proposed by Karras et al and reproduce their approaches in terms of model architecture and code. Moreover, we test the model on several additional small datasets and compare our results with the results obtained by the original paper authors, to find out if the scope of the model is generalizable. From an applied point of view, this work contributes to efficiency; by testing the GAN augmentations proposed, this work will further confirm the elimination of the barrier for applying GAN-type
 models in many applied fields of research. \\
 
-In this project, we use several datasets that consist of a limited number of training images, including: 
+In this project, there are some requirements mentioned in the original paper to make sure reproduce the study successfully:
+\begin{itemize}
+    \item 64-bit Python 3.6 or 3.7. Anaconda3 with numpy 1.14.3 or newer.
+    \item TensorFlow 1.14, which was used for all experiments in original  paper, but TensorFlow 1.15 is also supported on Linux. If on Windows use TensorFlow 1.14.
+    \item 1–8 high-end NVIDIA GPUs with at least 12 GB of GPU memory, NVIDIA drivers, CUDA 10.0 toolkit and cuDNN 7.5.
+    \item On Windows, the compilation requires Microsoft Visual Studio to be in PATH. It is recommended to install  Visual Studio Community Edition and add it into PATH using "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat".
+\end{itemize}
+
+
+
+we will use several datasets that consist of a limited number of training images, including: 
 \begin{enumerate}
 \item METFACES\cite{karras2020training} 
-\item BRECAHAD\cite{aksac2019brecahad}
 \item AFHQ\cite{choi2020stargan}
 \item CIFAR-10\cite{krizhevsky2009learning}
-\item FFHQ\cite{karras2019style}
-\item LSUN\cite{yu2015lsun}
+\item StandfordDogs\cite{}
+\item Cars196\cite{}
+\item OxfordFlowers102\cite{}
 \end{enumerate}
 
 
-\section{Proposed Method: [name]}
+\section{Proposed Method:}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Propose a step-by-step approach to solve your chosen problem.  You should include 
@@ -129,26 +145,63 @@ In this project, we use several datasets that consist of a limited number of tra
 In this section, we provide details of the methods we plan to use in this paper.
 
 \begin{itemize}
-    \item Datasets. In our experiments, we will randomly sample labeled examples from the training 
+    \item \textbf{Datasets.} In our experiments, we will use three out of the six datasets used in the original paper. That is, {\tt METFACES}, the Animal Faces-HQ ({\tt AFHQ}) dataset, and {\tt CIFAR-10}. In addition to these three datasets, we will test the generalizability of the original paper's findings by using three other small datasets that were not tested in Kerras et al. paper. These are the {\tt StanfordDogs} dataset, the {\tt Cars196} dataset, and the {\tt OxfordFlowers102} dataset. See Table 1 for more details about the datasets we plan to use in the present project. The datasets wil be either downloaded from Tensorflow datasets collection (CIFAR-10, Cars196, OxfordFlowers102, and StanfordDogs) or from source (AFHQ and METFACES).
+    
+    \item \textbf{Preprocessing.} The {\tt METFACES} dataset is available in both raw and process format. We will use the raw format and process it by aligning and cropping images at 1024×1024 pixels, then use various automatic filters to prune the dataset. The {\tt AFHQ} dataset will be split into three subsets: CAT, DOG and WILD. All datasets will be standardized to make the training faster and to reduce the probability of getting stuck in a local optima.
+    
+    \item \textbf{Pipeline}.
+    The authors of the paper implemented their techniques on top of the {\tt StyleGAN2} ofﬁcial TensorFlow implementation and kept most of the network architecture unchanged.  For this project, we will use  use the baseline StyleGAN2 as illustrated in Figure 1.
+    \begin{enumerate}
+        \item \textbf{\textit{The generator model.}} The generator model starts with an input layer that takes an image as input and a vector as an output in the latent space and gets normalized. We follow this with two fully connected layers (Dense layers), then we add a 4×4 convolutional layer, a 4×4 ToRGB layer, then an UpConv layer (upsampling + Sum + Residual Unit). We repeat this six more times while increasing the kernel size by the power of 2 (8×8, 16×16, 32×32, etc.). 
+        
+        \item \textbf{\textit{The discriminator model.}} For the discriminator model, following the input layer we will add a FromRGB layer with a kernel size of 256×256, followed by a DownConv layer (convolutional layer + Residual Unit + downsampling), a skip connections. We will repeat this 6 times before we add a a mini-batch standard deviation, a convolutional layer then a fully connected layer.
+        
+        \item \textbf{\textit{Quality metrics.}} In this project, we will use multiple metrics to evaluate the performance of our GANS.
+        \begin{itemize}
+            \item We will compute Frechet Inception Distance (FID) against the full dataset for each network to evaluate it.
+            \item Then, we will compute the Kernel inception distance (KID) against the full dataset.
+            \item Finally, we will calculate precision and recall againt the full dataset.
+        \end{itemize}
+        
+    \end{enumerate}
+    
+    \item \textbf{\textit{Timeline.}} The project timeline is described in Figure 2.
+
 \end{itemize}
+
+
+\begin{table}[h]
+
+        \centering 
+        \caption{Datasets Information}
+        \includegraphics[width=\textwidth]{figs/table_1.png}
+\end{table}
+
+
+\begin{figure}[h]
+    \centering 
+    \caption{StyleGAN2 architecture}
+    \includegraphics[width=\textwidth]{figs/stylegan2_arch.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering 
+    \caption{Project Timeline}
+    \includegraphics[width=\textwidth]{figs/timeline.png}
+\end{figure}
 
 
 
 \section{Conclusions}
 
 %Sum up, including your opinion on each approach.  Also, list any questions that you have for the instructor and TA regarding your project work.
+GAN approach is an efficient generative modeling approach, but its high demand of dataset size makes it limited to small size datasets applications. The attempts in Kerras et al provided a method to increase the feasibility of GAN approach for small size datasets. By the applying of adaptive discriminator augmentation mechanism, the GAN approach can also generate a good result with small datasets. In our project, we try to reproduce this good quality of results reported in paper, following the code of the method and applying them to small datasets (three from original paper, and three additional new datasets). As described above, after the preprocessing of data, we are going to follow the pipeline where the baseline is StyleGAN2.
+The paper provides good details of method to allow us to reproduce the results. And we have confidence to follow the timeline we assumed within tiny error or not.
+
 
 %\textcolor{red}{Remember to cite sources using BiBTeX and add those references to the end of this document!}
 
 %It is okay to cite some websites and tutorials (if you first look up how to properly cite them!), but you must also cite some refereed publications from conferences and/or journals.
-
-
-
-
-
-
-
-
 
 
 
