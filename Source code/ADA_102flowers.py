@@ -13,7 +13,9 @@
 # In[2]:
 
 
-get_ipython().run_line_magic('cd', 'stylegan2-ada')
+import os
+os.chdir('stylegan2-ada')
+WORK = os.environ["WORK"]
 
 
 # ## Download 102flowers raw data
@@ -208,7 +210,6 @@ def create_from_images(tfrecord_dir, image_dir, shuffle):
 # In[ ]:
 
 
-WORK = os.environ["WORK"]
 create_from_images(tfrecord_dir=f'{WORK}/datasets/102flowers_custom',
                    image_dir=f'{WORK}/102flowers_resized', shuffle=1)
 
@@ -231,15 +232,6 @@ prepend_path("LD_LIBRARY_PATH","/util/opt/cuda/10.2/lib64")
 prepend_path("LIBRARY_PATH","/util/opt/cuda/10.2/lib64")
 prepend_path("MANPATH","/util/opt/cuda/10.2/doc/man")
 prepend_path("CPATH","/util/opt/cuda/10.2/include")
-# prepend_path("CONDA_ENVS_PATH","~/.conda/envs")
-
-# sys.path.append("/util/opt/anaconda3/2.0/envs")
-# sys.path.append("/util/opt/anaconda/2.2/envs")
-# sys.path.append("/util/opt/anaconda/4.3/envs")
-
-# prepend_path("PATH","/util/opt/anaconda/4.8.2/condabin")
-# prepend_path("PATH","/util/opt/anaconda/4.8/condabin")
-
 prepend_path("PATH","/util/comp/gcc/4.7/bin")
 prepend_path("LD_LIBRARY_PATH","/util/comp/gcc/4.7/lib")
 prepend_path("LD_LIBRARY_PATH","/util/comp/gcc/4.7/lib64")
@@ -685,7 +677,7 @@ import os
 
 
 def last_snap(num):
-    files = glob(f'{sorted(glob(os.environ["WORK"] + "/102flowers_training-runs/*"))[num]}/*')
+    files = glob(f'{sorted(glob(WORK + "/102flowers_training-runs/*"))[num]}/*')
     files = [x for x in files if 'network-snapshot' in x]
     return files
 
@@ -698,14 +690,28 @@ file = sorted(files)[-1]
 print(file)
 
 
+# ### Check available GPUs
+
+# In[ ]:
+
+
+import subprocess
+def execute(command: list):
+    stdout = subprocess.run(command, capture_output=True, text=True).stdout
+    for line in stdout.strip().splitlines():
+        print(line)
+
+execute(['nvidia-smi'])
+
+
 # In[6]:
 
 
 run_desc, training_options = setup_training_options(
     gpus       = 2,
     snap       = 1,
-    data       = '/work/chaselab/malyetama/datasets/102flowers_custom',
-    resume     = "/work/chaselab/malyetama/102flowers_training-runs/00026-102flowers_custom-auto2-resumecustom/network-snapshot-000061.pkl"
+    data       = f'{WORK}/datasets/102flowers_custom',
+    resume     = f'{WORK}/102flowers_training-runs/00026-102flowers_custom-auto2-resumecustom/network-snapshot-000061.pkl'
 )
 
 
@@ -713,8 +719,6 @@ run_desc, training_options = setup_training_options(
 
 # In[7]:
 
-
-#----------------------------------------------------------------------------
 
 def run_training(outdir, seed, dry_run, run_desc, training_options):
     # Setup training options.
@@ -760,21 +764,15 @@ def run_training(outdir, seed, dry_run, run_desc, training_options):
 # In[ ]:
 
 
-# ! nvidia-smi
-
-
-# In[ ]:
-
-
 # dry-run (no training)
-run_training(outdir="/work/chaselab/malyetama/102flowers_training-runs", seed=1000,
+run_training(outdir=f"{WORK}/102flowers_training-runs", seed=1000,
              dry_run=True, run_desc=run_desc, training_options=training_options)
 
 
 # In[ ]:
 
 
-run_training(outdir="/work/chaselab/malyetama/102flowers_training-runs", seed=1000,
+run_training(outdir=f"{WORK}/102flowers_training-runs", seed=1000,
              dry_run=False, run_desc=run_desc, training_options=training_options)
 
 
